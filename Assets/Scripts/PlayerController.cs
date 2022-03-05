@@ -46,4 +46,12 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("PickUp"))
+        {
+            hit.gameObject.GetComponent<PickUp>().Picked();
+        }
+    }
 }

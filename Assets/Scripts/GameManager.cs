@@ -8,8 +8,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] int timeToEnd;
     private int defaultTimeToEnd = 100;
     private bool gamePaused = false;
+    [SerializeField] int points = 0;
     // bool endGame = false;
     bool win = false;
+
+    [SerializeField] int redKeys = 0;
+    [SerializeField] int greenKeys = 0;
+    [SerializeField] int goldKeys = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +41,7 @@ public class GameManager : MonoBehaviour
     void TimerTick()
     {
         timeToEnd--;
-        Debug.Log("Time: " + timeToEnd + " s");
+        //Debug.Log("Time: " + timeToEnd + " s");
 
         if (timeToEnd <= 0)
         {
@@ -83,6 +88,37 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("You lose!!! Reload?");
+        }
+    }
+
+    public void AddPoints(int points)
+    {
+        this.points += points;
+    }
+
+    public void AddTime(int timeToAdd)
+    {
+        timeToEnd += timeToAdd;
+    }
+
+    public void FreezeTime(float freezeTime)
+    {
+        CancelInvoke("TimerTick");
+        InvokeRepeating("TimerTick", freezeTime, 1);
+    }
+
+    public void AddKey(KeyColor color)
+    {
+        if (color == KeyColor.Gold)
+        {
+            goldKeys++;
+        }
+        else if (color == KeyColor.Red)
+        {
+            redKeys++;
+        } else if (color == KeyColor.Green)
+        {
+            greenKeys++;
         }
     }
 }
