@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PortalTeleport : MonoBehaviour
 {
-    [SerializeField] Transform player;
+    public Transform player;
     [SerializeField] Transform reciever;
 
     public bool isPlayerOverlapping = false;
@@ -48,13 +48,10 @@ public class PortalTeleport : MonoBehaviour
             {
                 float rotationDifference = -Quaternion.Angle(transform.rotation, reciever.rotation);
                 rotationDifference += 180;
-
                 player.Rotate(Vector3.up, rotationDifference);
-
                 Vector3 positionOffset = Quaternion.Euler(0f, rotationDifference, 0f) * portalToPlayer;
 
                 player.position = reciever.position + positionOffset;
-
                 isPlayerOverlapping = false;
             }
         }
