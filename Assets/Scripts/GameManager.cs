@@ -10,15 +10,20 @@ public class GameManager : MonoBehaviour
     private bool gamePaused = false;
     [SerializeField] int points = 0;
     // bool endGame = false;
-    bool win = false;
+    [SerializeField] bool win = false;
+    AudioSource audioSource;
+    [SerializeField] AudioClip winSound;
+    [SerializeField] AudioClip loseSound;
 
-    [SerializeField] int redKeys = 0;
-    [SerializeField] int greenKeys = 0;
-    [SerializeField] int goldKeys = 0;
+    [SerializeField] public int redKeys = 0;
+    [SerializeField] public int greenKeys = 0;
+    [SerializeField] public int goldKeys = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (gameManager == null)
         {
             gameManager = this;
@@ -83,10 +88,12 @@ public class GameManager : MonoBehaviour
         CancelInvoke("TimerTick");
         if (win)
         {
+            PlayClip(winSound);
             Debug.Log("You win!!! Reload?");
         } 
         else
         {
+            PlayClip(loseSound);
             Debug.Log("You lose!!! Reload?");
         }
     }
@@ -120,5 +127,11 @@ public class GameManager : MonoBehaviour
         {
             greenKeys++;
         }
+    }
+
+    public void PlayClip(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 50;
+    [SerializeField] protected AudioClip sound;
 
     public virtual void Picked()
     {
